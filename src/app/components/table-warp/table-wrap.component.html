@@ -3,9 +3,18 @@
   [dataSource]="dataSource"
   class="mat-elevation-z8"
   class="primary-table"
+  matSort
+  (matSortChange)="announceSortChange($event)"
 >
   <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-    <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by name"
+    >
+      {{ column | titlecase }}
+    </th>
     <td mat-cell *matCellDef="let element">
       @if (isDateColumn(column)) {
       {{ element[column] | date }}

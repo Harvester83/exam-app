@@ -102,3 +102,7 @@ $theme: mat.define-light-theme(
 );
 
 @include mat.all-component-themes($theme);
+
+.mat-sort-header-arrow {
+  color: #fff !important;
+}
