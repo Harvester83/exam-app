@@ -104,69 +104,10 @@
     </div>
   </form>
 
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="mat-elevation-z8"
-    class="primary-table"
-  >
-    <ng-container matColumnDef="subjectCode">
-      <th mat-header-cell *matHeaderCellDef>Subject Code</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.subjectCode }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="subjectName">
-      <th mat-header-cell *matHeaderCellDef>Subject Name</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.subjectName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="studentNum">
-      <th mat-header-cell *matHeaderCellDef>Student Number</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.studentNum }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="studentName">
-      <th mat-header-cell *matHeaderCellDef>Student Name</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.studentName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="examDate">
-      <th mat-header-cell *matHeaderCellDef>Exam Date</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.examDate | date }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="grade">
-      <th mat-header-cell *matHeaderCellDef>Grade</th>
-      <td mat-cell *matCellDef="let exam">{{ exam.grade }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let exam">
-        <button mat-mini-fab color="primary" (click)="updateExam(exam)">
-          <mat-icon>edit</mat-icon>
-        </button>
-
-        <button mat-mini-fab color="warn" (click)="removeExam(exam.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="mat-row"
-    ></tr>
-
-    <!-- No data row -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-        <div class="mat-cell-block">
-          <mat-icon color="primary">info</mat-icon> No data
-        </div>
-      </td>
-    </tr>
-  </table>
+  <app-table-wrap
+  [displayedColumns]="displayedColumns"
+  [dataSource]="dataSource"
+  (remove)="removeExam($event)"
+  (update)="updateExam($event)"
+></app-table-wrap>
 </div>

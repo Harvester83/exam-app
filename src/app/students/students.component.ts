@@ -27,7 +27,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { uid } from "uid";
+import { uid } from 'uid';
+import { TableWrapComponent } from '../components/table-warp/table-wrap.component';
 
 @Component({
   selector: 'app-students',
@@ -44,7 +45,9 @@ import { uid } from "uid";
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    TableWrapComponent,
     ReactiveFormsModule,
+
   ],
 })
 export class StudentsComponent implements OnInit {
@@ -56,7 +59,6 @@ export class StudentsComponent implements OnInit {
     'studentName',
     'studentSurname',
     'studentClass',
-    'actions',
   ];
 
   isEditMode = false;
