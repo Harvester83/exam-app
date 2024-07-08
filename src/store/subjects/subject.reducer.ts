@@ -44,6 +44,31 @@ const initialState: Subject[] = [
     teacherName: 'Mike',
     teacherSurname: 'Doe',
   },
+
+  {
+    id: uid(),
+    subjectCode: 'LIT',
+    subjectName: 'Literature',
+    classNum: 3,
+    teacherName: 'Paul',
+    teacherSurname: 'Paulson',
+  },
+  {
+    id: uid(),
+    subjectCode: 'NEU',
+    subjectName: 'Neurology',
+    classNum: 4,
+    teacherName: 'Sib',
+    teacherSurname: 'Sibson',
+  },
+  {
+    id: uid(),
+    subjectCode: 'HIS',
+    subjectName: 'History',
+    classNum: 5,
+    teacherName: 'Vincent',
+    teacherSurname: 'Vincentson',
+  },
 ];
 
 const _subjectReducer = createReducer(
