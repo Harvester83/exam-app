@@ -2,15 +2,12 @@
   <h2 class="title">SUBJECTS</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div
-      fxLayout="row"
-    >
+    <div fxLayout="row">
       <div fxLayout="column" class="mr-10">
         <mat-form-field [style.display]="'none'">
           <mat-label>id</mat-label>
           <input matInput formControlName="id" />
         </mat-form-field>
-
 
         <mat-form-field class="mb-10">
           <mat-label>Subject code</mat-label>
@@ -51,91 +48,31 @@
       </div>
 
       @if(isEditMode) {
-        <button
-          mat-raised-button
-          type="submit"
-          color="primary"
-          [disabled]="!form.valid"
-        >
-          <mat-icon>update</mat-icon> Update
-        </button>
-        } @else {
-        <button
-          mat-raised-button
-          type="submit"
-          color="primary"
-          [disabled]="!form.valid"
-        >
-          <mat-icon>add</mat-icon> Add
-        </button>
-        }
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        <mat-icon>update</mat-icon> Update
+      </button>
+      } @else {
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        <mat-icon>add</mat-icon> Add
+      </button>
+      }
     </div>
   </form>
 
-  <table
-    mat-table
+  <app-table-wrap
+    [displayedColumns]="displayedColumns"
     [dataSource]="dataSource"
-    class="mat-elevation-z8"
-    class="primary-table"
-  >
-    <ng-container matColumnDef="subjectCode">
-      <th mat-header-cell *matHeaderCellDef>Code</th>
-      <td mat-cell *matCellDef="let subject">{{ subject.subjectCode }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="subjectName">
-      <th mat-header-cell *matHeaderCellDef>Subject name</th>
-      <td mat-cell *matCellDef="let subject">{{ subject.subjectName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="classNum">
-      <th mat-header-cell *matHeaderCellDef>Class number</th>
-      <td mat-cell *matCellDef="let subject">{{ subject.classNum }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="teacherName">
-      <th mat-header-cell *matHeaderCellDef>Teacher name</th>
-      <td mat-cell *matCellDef="let subject">{{ subject.teacherName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="teacherSurname">
-      <th mat-header-cell *matHeaderCellDef>Teacher surname</th>
-      <td mat-cell *matCellDef="let subject">
-        {{ subject.teacherSurname }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let subject">
-        <button mat-mini-fab color="primary" (click)="updateSubject(subject)">
-          <mat-icon>edit</mat-icon>
-        </button>
-
-        <button
-          mat-mini-fab
-          color="warn"
-          (click)="removeSubject(subject.id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      class="mat-row"
-      *matRowDef="let row; columns: displayedColumns"
-    ></tr>
-
-    <!-- No data row -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-        <div class="mat-cell-block">
-          <mat-icon color="primary">info</mat-icon> No data
-        </div>
-      </td>
-    </tr>
-  </table>
+    (remove)="removeSubject($event)"
+    (update)="updateSubject($event)"
+  ></app-table-wrap>
 </div>

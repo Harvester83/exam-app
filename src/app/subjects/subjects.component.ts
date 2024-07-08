@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   inject,
+  Input,
 } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -28,6 +29,7 @@ import {
 } from '../../store/subjects/subject.actions';
 import { Subject } from '../../store/subjects/subject.model';
 import { uid } from 'uid';
+import { TableWrapComponent } from '../components/table-warp/table-wrap.component';
 
 @Component({
   selector: 'app-subjects',
@@ -44,28 +46,28 @@ import { uid } from 'uid';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    TableWrapComponent,
     ReactiveFormsModule,
   ],
 })
 export class SubjectsComponent implements OnInit {
   dataSource: MatTableDataSource<Subject> = new MatTableDataSource<Subject>();
   subjects$!: Observable<Subject[]>;
-
   displayedColumns: string[] = [
     'subjectCode',
     'subjectName',
     'classNum',
     'teacherName',
     'teacherSurname',
-    'actions',
   ];
 
   isEditMode = false;
   form!: FormGroup;
   selectedSubject: Subject | null = null;
-  private store: Store<AppState> = inject(Store);
 
-  constructor(private fb: FormBuilder) {
+  private store: Store<AppState> = inject(Store);
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  constructor() {
     this.subjects$ = this.store.select('subjects');
     this.subjects$.subscribe((data) => {
       this.dataSource.data = data || [];
@@ -73,9 +75,12 @@ export class SubjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       id: [''],
-      subjectCode: ['', [Validators.required, Validators.pattern('^[A-Z]{3}$')]],
+      subjectCode: [
+        '',
+        [Validators.required, Validators.pattern('^[A-Z]{3}$')],
+      ],
       subjectName: ['', Validators.required],
       classNum: ['', Validators.required],
       teacherName: ['', Validators.required],
@@ -98,8 +103,8 @@ export class SubjectsComponent implements OnInit {
     this.form.reset();
   }
 
-  removeSubject(id: string): void {
-    this.store.dispatch(removeSubject({ id }));
+  removeSubject(subjectId: string) {
+    this.store.dispatch(removeSubject({ id: subjectId }));
   }
 
   updateSubject(subject: Subject): void {

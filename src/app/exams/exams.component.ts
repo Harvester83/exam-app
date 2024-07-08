@@ -37,6 +37,7 @@ import { Subject } from '../../store/subjects/subject.model';
 import { Student } from '../../store/students/student.model';
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { uid } from "uid";
+import { TableWrapComponent } from "../components/table-warp/table-wrap.component";
 
 export function dateValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -72,6 +73,7 @@ export function dateValidator(control: AbstractControl): ValidationErrors | null
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
+    TableWrapComponent,
     ReactiveFormsModule,
   ],
 })
@@ -90,7 +92,6 @@ export class ExamsComponent implements OnInit {
     'studentName',
     'examDate',
     'grade',
-    'actions',
   ];
 
   isEditMode = false;
@@ -170,6 +171,7 @@ export class ExamsComponent implements OnInit {
         });
     });
   }
+  
   onSubmit(): void {
     const formData: Exam = this.form.value;
     if (this.isEditMode && this.selectedExam) {
