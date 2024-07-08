@@ -5,10 +5,6 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 
-
-
-
-
 @Component({
   standalone: true,
   selector: 'app-table-wrap',

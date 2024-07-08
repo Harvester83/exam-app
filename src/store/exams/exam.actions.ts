@@ -1,4 +1,3 @@
-// exam.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { Exam } from './exam.model';
 

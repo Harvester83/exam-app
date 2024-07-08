@@ -1,4 +1,3 @@
-// exam.reducer.ts
 import { createReducer, on } from '@ngrx/store';
 import { addExam, removeExam, updateExam } from './exam.actions';
 import { Exam } from './exam.model';
