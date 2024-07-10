@@ -35,7 +35,6 @@ import { TableWrapComponent } from '../components/table-warp/table-wrap.componen
   selector: 'app-subjects',
   standalone: true,
   templateUrl: './subjects.component.html',
-  styleUrls: ['./subjects.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,

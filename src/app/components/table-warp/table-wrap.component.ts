@@ -1,3 +1,5 @@
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -6,13 +8,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
-import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   standalone: true,
@@ -45,12 +45,6 @@ export class TableWrapComponent implements AfterViewInit {
   }
 
   announceSortChange(sortState: Sort) {
-    console.log(1, sortState);
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {

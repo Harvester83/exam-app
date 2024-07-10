@@ -59,7 +59,6 @@ export function dateValidator(control: AbstractControl): ValidationErrors | null
   selector: 'app-exams',
   standalone: true,
   templateUrl: './exams.component.html',
-  styleUrls: ['./exams.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNativeDateAdapter()],
   imports: [

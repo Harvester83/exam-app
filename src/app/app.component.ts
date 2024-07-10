@@ -2,14 +2,12 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SubjectsComponent } from './subjects/subjects.component';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-//import { StoreModule } from '@ngrx/store';
-//import { elementReducer } from '../store/reducers';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +21,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatGridListModule,
     FlexLayoutModule,
     MatToolbarModule,
-    //StoreModule.forRoot({ appState: elementReducer })
   ],
   template: `
     <header>
@@ -44,10 +41,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         <router-outlet></router-outlet>
       </section>
     </main>
-
-    <footer>
-      <!-- Информация о копирайте, ссылки на политику конфиденциальности и т.д. -->
-    </footer>
   `,
   styleUrl: './app.component.scss',
 })

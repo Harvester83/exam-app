@@ -34,7 +34,6 @@ import { TableWrapComponent } from '../components/table-warp/table-wrap.componen
   selector: 'app-students',
   standalone: true,
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
