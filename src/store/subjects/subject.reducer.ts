@@ -7,7 +7,7 @@ const initialState: Subject[] = [
   {
     id: uid(),
     subjectCode: 'MAT',
-    subjectName: 'Math',
+    subjectName: 'Mathematics',
     classNum: 1,
     teacherName: 'John',
     teacherSurname: 'Doe',
@@ -80,9 +80,8 @@ const _subjectReducer = createReducer(
   ),
 
   on(updateSubject, (state, { subject }) => {
+    console.log('subject: ', subject);
     const index = state.findIndex((item) => {
-      console.log('item.subjectCode: ', item.id);
-      console.log('subject.subjectCode: ', subject.id);
       return item.id === subject.id
 
     });

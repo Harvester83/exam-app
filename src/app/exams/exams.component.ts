@@ -188,7 +188,8 @@ export class ExamsComponent implements OnInit {
   }
 
   updateExam(exam: Exam): void {
-    console.log(exam);
+    console.log('exam: ', exam);
+
     this.selectedExam = exam;
     this.form.setValue({
       id: exam.id,
@@ -197,7 +198,7 @@ export class ExamsComponent implements OnInit {
       studentNum: exam.studentNum,
       studentName: exam.studentName,
       examDate: exam.examDate,
-      grade: exam.grade,
+      grade: Math.random() * 10,
     });
 
     this.isEditMode = true;

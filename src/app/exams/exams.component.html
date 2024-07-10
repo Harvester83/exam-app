@@ -11,10 +11,7 @@
 
         <mat-form-field class="mb-10">
           <mat-label>Subject code</mat-label>
-          <mat-select
-            formControlName="subjectCode"
-            (selectionChange)="(onChange)"
-          >
+          <mat-select formControlName="subjectCode">
             <mat-option
               *ngFor="let subject of subjects$ | async"
               [value]="subject.subjectCode"
@@ -40,15 +37,12 @@
       <div fxLayout="column" class="mr-10">
         <mat-form-field class="mb-10">
           <mat-label>Student number</mat-label>
-          <mat-select
-            formControlName="studentNum"
-            (selectionChange)="(onChange)"
-          >
+          <mat-select formControlName="studentNum">
             @for (student of students$ | async; track student) {
             <mat-option [value]="student.studentNum">
               {{ student.studentNum }}
             </mat-option>
-            } @empty { Empty }
+            }
           </mat-select>
         </mat-form-field>
 
@@ -59,7 +53,7 @@
             <mat-option [value]="student.studentName">
               {{ student.studentName }}
             </mat-option>
-            } @empty { Empty }
+            }
           </mat-select>
         </mat-form-field>
       </div>
@@ -68,7 +62,7 @@
         <mat-form-field class="mb-10">
           <mat-label>Exam date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="examDate" />
-          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+         
           <mat-datepicker-toggle
             matIconSuffix
             [for]="picker"
@@ -105,9 +99,9 @@
   </form>
 
   <app-table-wrap
-  [displayedColumns]="displayedColumns"
-  [dataSource]="dataSource"
-  (remove)="removeExam($event)"
-  (update)="updateExam($event)"
-></app-table-wrap>
+    [displayedColumns]="displayedColumns"
+    [dataSource]="dataSource"
+    (remove)="removeExam($event)"
+    (update)="updateExam($event)"
+  ></app-table-wrap>
 </div>

@@ -6,16 +6,7 @@ import { uid } from 'uid';
 export const initialState: Exam[] = [
   {
     id: uid(),
-    studentNum: 12345,
-    studentName: 'John',
-    subjectCode: 'MAT',
-    subjectName: 'Mathematics',
-    examDate: new Date(),
-    grade: 5,
-  },
-  {
-    id: uid(),
-    studentNum: 12346,
+    studentNum: 41,
     studentName: 'Jane',
     subjectCode: 'PHY',
     subjectName: 'Physics',
@@ -24,12 +15,21 @@ export const initialState: Exam[] = [
   },
   {
     id: uid(),
-    studentNum: 12347,
+    studentNum: 42,
     studentName: 'Mark',
     subjectCode: 'CHE',
     subjectName: 'Chemistry',
     examDate: new Date(),
     grade: 4,
+  },
+  {
+    id: uid(),
+    studentNum: 43,
+    studentName: 'Tor',
+    subjectCode: 'MAT',
+    subjectName: 'Mathematics',
+    examDate: new Date(),
+    grade: 5,
   },
 ];
 
