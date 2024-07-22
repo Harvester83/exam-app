@@ -46,7 +46,6 @@ import { TableWrapComponent } from '../components/table-warp/table-wrap.componen
     MatInputModule,
     TableWrapComponent,
     ReactiveFormsModule,
-
   ],
 })
 export class StudentsComponent implements OnInit {
@@ -99,7 +98,7 @@ export class StudentsComponent implements OnInit {
     this.store.dispatch(removeStudent({ id }));
   }
 
-  updateStudent(student: Student): void {
+  editStudent(student: Student): void {
     this.selectedStudent = student;
     this.form.setValue({
       id: student.id,

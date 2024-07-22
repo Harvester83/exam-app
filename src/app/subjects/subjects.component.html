@@ -71,8 +71,9 @@
 
   <app-table-wrap
     [displayedColumns]="displayedColumns"
+    [isLoading]="isLoading"
     [dataSource]="dataSource"
     (remove)="removeSubject($event)"
-    (update)="updateSubject($event)"
+    (edit)="editSubject($event)"
   ></app-table-wrap>
 </div>

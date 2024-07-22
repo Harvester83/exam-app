@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   inject,
-  Input,
+  OnInit
 } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -21,15 +20,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from '../../store/app.state';
-import {
-  addSubject,
-  removeSubject,
-  updateSubject,
-} from '../../store/subjects/subject.actions';
-import { Subject } from '../../store/subjects/subject.model';
 import { uid } from 'uid';
+import { AppState } from '../../store/app.state';
+// import {
+//   addSubject,
+//   removeSubject,
+//   updateSubject,
+// } from '../../store/subjects/subject.actions';
+import { Subject } from '../../store/subjects/subject.model';
 import { TableWrapComponent } from '../components/table-warp/table-wrap.component';
+import { SubjectService } from '../subject.service';
 
 @Component({
   selector: 'app-subjects',
@@ -61,19 +61,21 @@ export class SubjectsComponent implements OnInit {
   ];
 
   isEditMode = false;
+  isLoading = false;
   form!: FormGroup;
   selectedSubject: Subject | null = null;
 
   private store: Store<AppState> = inject(Store);
   private formBuilder: FormBuilder = inject(FormBuilder);
+  subjectService: SubjectService = inject(SubjectService);
+
   constructor() {
-    this.subjects$ = this.store.select('subjects');
-    this.subjects$.subscribe((data) => {
+    this.subjectService.getSubjects().subscribe((data) => {
       this.dataSource.data = data || [];
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.form = this.formBuilder.group({
       id: [''],
       subjectCode: [
@@ -85,29 +87,41 @@ export class SubjectsComponent implements OnInit {
       teacherName: ['', Validators.required],
       teacherSurname: ['', Validators.required],
     });
+
+    this.isLoading = true;
+    try {
+      await this.subjectService.loadSubjects();
+    } catch (error) {
+      console.error('Error loading subjects:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
+  
 
   onSubmit(): void {
     const formData: Subject = this.form.value;
 
     if (this.isEditMode && this.selectedSubject) {
-      console.log(1, formData);
-      this.store.dispatch(updateSubject({ subject: formData }));
+      const updatedSubjects = this.dataSource.data.map(subject =>
+        subject.id === this.selectedSubject!.id ? { ...formData, id: this.selectedSubject!.id } : subject
+      );
+      this.subjectService.updateSubjects(updatedSubjects);
       this.isEditMode = false;
       this.selectedSubject = null;
     } else {
-      console.log(formData);
-      this.store.dispatch(addSubject({ subject: { ...formData, id: uid() } }));
+      const newSubject: Subject = { ...formData, id: uid() };
+      this.subjectService.updateSubjects([...this.dataSource.data, newSubject]);
     }
+    
     this.form.reset();
   }
 
   removeSubject(subjectId: string) {
-    this.store.dispatch(removeSubject({ id: subjectId }));
+    this.subjectService.removeSubject(subjectId);
   }
 
-  updateSubject(subject: Subject): void {
-    this.selectedSubject = subject;
+  editSubject(subject: Subject): void {
     this.form.setValue({
       id: subject.id,
       subjectCode: subject.subjectCode,

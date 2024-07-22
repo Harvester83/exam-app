@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
@@ -25,14 +26,16 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressSpinnerModule
   ],
 })
 export class TableWrapComponent implements AfterViewInit {
   @Input() displayedColumns!: string[];
+  @Input() isLoading!: boolean;
   @Input() dataSource!: MatTableDataSource<any>;
 
   @Output() remove = new EventEmitter<string>();
-  @Output() update = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -61,7 +64,7 @@ export class TableWrapComponent implements AfterViewInit {
     this.remove.emit(id);
   }
 
-  updateElement(element: any) {
-    this.update.emit(element);
+  editElement(element: any) {
+    this.edit.emit(element);
   }
 }
