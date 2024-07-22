@@ -38,6 +38,7 @@ import { Student } from '../../store/students/student.model';
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { uid } from "uid";
 import { TableWrapComponent } from "../components/table-warp/table-wrap.component";
+import { SubjectService } from "../subject.service";
 
 export function dateValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
@@ -80,9 +81,10 @@ export class ExamsComponent implements OnInit {
   dataSource = new MatTableDataSource<Exam>();
   form!: FormGroup;
 
-  exams$!: Observable<Exam[]>;
+  subjectService: SubjectService = inject(SubjectService);
   subjects$!: Observable<Subject[]>;
   students$!: Observable<Student[]>;
+  exams$!: Observable<Exam[]>;
 
   displayedColumns: string[] = [
     'subjectCode',
@@ -98,16 +100,21 @@ export class ExamsComponent implements OnInit {
 
   private store: Store<AppState> = inject(Store);
   constructor(private fb: FormBuilder) {
-    this.subjects$ = this.store.select('subjects');
-    this.students$ = this.store.select('students');
 
+
+    //this.subjects$ = this.store.select('subjects');
+    this.subjects$ = this.subjectService.getSubjects();
+    
+
+    this.students$ = this.store.select('students');
     this.exams$ = this.store.select('exams');
+
     this.exams$.subscribe((data) => {
       this.dataSource.data = data || [];
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.form = this.fb.group({
       id: [''],
       subjectCode: ['', Validators.required],
@@ -119,6 +126,12 @@ export class ExamsComponent implements OnInit {
     });
 
     this.onChange();
+
+    try {
+      await this.subjectService.loadSubjects();
+    } catch (error) {
+      console.error('Error loading subjects:', error);
+    }
   }
 
   onChange(): void {
@@ -187,9 +200,7 @@ export class ExamsComponent implements OnInit {
     this.store.dispatch(removeExam({ id }));
   }
 
-  updateExam(exam: Exam): void {
-    console.log('exam: ', exam);
-
+  editExam(exam: Exam): void {
     this.selectedExam = exam;
     this.form.setValue({
       id: exam.id,
